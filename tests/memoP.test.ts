@@ -2,8 +2,12 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { memoPromise } from '../src/memoP.js';
 
 describe('memoPromise', () => {
+  // Mock Date.now to control time for expiration tests
+  let now = 0;
+
   beforeEach(() => {
-    vi.spyOn(Date, 'now').mockImplementation(() => 1000);
+    now = 1000;
+    vi.spyOn(Date, 'now').mockImplementation(() => now);
   });
 
   afterEach(() => {
