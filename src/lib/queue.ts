@@ -1,3 +1,5 @@
+import { IQueue } from "./queue-interface";
+
 class QueueNode<T> {
   value: T;
   next: QueueNode<T> | null;
@@ -8,7 +10,7 @@ class QueueNode<T> {
   }
 }
 
-export class Queue<T> {
+export class Queue<T> implements IQueue<T> {
   private head: QueueNode<T> | null;
   private tail: QueueNode<T> | null;
   private size: number;
