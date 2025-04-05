@@ -63,10 +63,10 @@ describe('Queue', () => {
     it('should return the front item without removing it', () => {
       queue.enqueue(1);
       queue.enqueue(2);
-      
+
       expect(queue.peek()).toBe(1);
       expect(queue.length).toBe(2); // Length should remain unchanged
-      
+
       expect(queue.peek()).toBe(1); // Calling peek again should return the same item
     });
   });
@@ -74,10 +74,10 @@ describe('Queue', () => {
   describe('fromArray', () => {
     it('should populate queue from an array', () => {
       queue.fromArray([1, 2, 3]);
-      
+
       expect(queue.length).toBe(3);
       expect(queue.peek()).toBe(1);
-      
+
       expect(queue.dequeue()).toBe(1);
       expect(queue.dequeue()).toBe(2);
       expect(queue.dequeue()).toBe(3);
@@ -94,7 +94,7 @@ describe('Queue', () => {
       queue.enqueue(1);
       queue.enqueue(2);
       queue.enqueue(3);
-      
+
       expect(queue.toArray()).toEqual([1, 2, 3]);
       expect(queue.length).toBe(3); // Queue should remain unchanged
     });
@@ -108,9 +108,9 @@ describe('Queue', () => {
     it('should remove all items from the queue', () => {
       queue.enqueue(1);
       queue.enqueue(2);
-      
+
       queue.clear();
-      
+
       expect(queue.isEmpty()).toBe(true);
       expect(queue.length).toBe(0);
       expect(queue.peek()).toBeNull();

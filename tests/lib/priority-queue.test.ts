@@ -63,10 +63,10 @@ describe('PriorityQueue', () => {
     it('should return the highest priority item without removing it', () => {
       priorityQueue.enqueue('low', 1);
       priorityQueue.enqueue('high', 10);
-      
+
       expect(priorityQueue.peek()).toBe('high');
       expect(priorityQueue.length).toBe(2); // Length should remain unchanged
-      
+
       expect(priorityQueue.peek()).toBe('high'); // Calling peek again should return the same item
     });
   });
@@ -76,12 +76,12 @@ describe('PriorityQueue', () => {
       priorityQueue.fromArray([
         { value: 'low', priority: 1 },
         { value: 'medium', priority: 5 },
-        { value: 'high', priority: 10 }
+        { value: 'high', priority: 10 },
       ]);
-      
+
       expect(priorityQueue.length).toBe(3);
       expect(priorityQueue.peek()).toBe('high');
-      
+
       expect(priorityQueue.dequeue()).toBe('high');
       expect(priorityQueue.dequeue()).toBe('medium');
       expect(priorityQueue.dequeue()).toBe('low');
@@ -98,15 +98,15 @@ describe('PriorityQueue', () => {
       priorityQueue.enqueue('low', 1);
       priorityQueue.enqueue('medium', 5);
       priorityQueue.enqueue('high', 10);
-      
+
       const array = priorityQueue.toArray();
       expect(array.length).toBe(3);
-      
+
       // Check that all items are in the array with their priorities
       expect(array).toContainEqual({ value: 'low', priority: 1 });
       expect(array).toContainEqual({ value: 'medium', priority: 5 });
       expect(array).toContainEqual({ value: 'high', priority: 10 });
-      
+
       expect(priorityQueue.length).toBe(3); // Queue should remain unchanged
     });
 
@@ -119,9 +119,9 @@ describe('PriorityQueue', () => {
     it('should remove all items from the queue', () => {
       priorityQueue.enqueue('low', 1);
       priorityQueue.enqueue('high', 10);
-      
+
       priorityQueue.clear();
-      
+
       expect(priorityQueue.isEmpty()).toBe(true);
       expect(priorityQueue.length).toBe(0);
       expect(priorityQueue.peek()).toBeNull();

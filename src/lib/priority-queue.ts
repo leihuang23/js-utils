@@ -1,5 +1,5 @@
-import { IPriorityQueue } from "./queue-interface";
-import { Queue } from "./queue";
+import { IPriorityQueue } from './queue-interface';
+import { Queue } from './queue';
 
 export class PriorityQueue<T> implements IPriorityQueue<T> {
   private queue: Queue<{ priority: number; value: T }>;
@@ -20,7 +20,7 @@ export class PriorityQueue<T> implements IPriorityQueue<T> {
     let highestPriority = -Infinity;
     let highestPriorityItem: { priority: number; value: T } | null = null;
     const tempQueue = new Queue<{ priority: number; value: T }>();
-    
+
     // Find the highest priority item
     while (!this.queue.isEmpty()) {
       const item = this.queue.dequeue()!;
@@ -30,15 +30,18 @@ export class PriorityQueue<T> implements IPriorityQueue<T> {
       }
       tempQueue.enqueue(item);
     }
-    
+
     // Rebuild the queue without the highest priority item
     while (!tempQueue.isEmpty()) {
       const item = tempQueue.dequeue()!;
-      if (item.priority !== highestPriorityItem!.priority || item.value !== highestPriorityItem!.value) {
+      if (
+        item.priority !== highestPriorityItem!.priority ||
+        item.value !== highestPriorityItem!.value
+      ) {
         this.queue.enqueue(item);
       }
     }
-    
+
     return highestPriorityItem ? highestPriorityItem.value : null;
   }
 
@@ -46,11 +49,11 @@ export class PriorityQueue<T> implements IPriorityQueue<T> {
     if (this.isEmpty()) {
       return null;
     }
-    
+
     let highestPriority = -Infinity;
     let highestPriorityValue: T | null = null;
     const tempQueue = new Queue<{ priority: number; value: T }>();
-    
+
     // Find the highest priority item without removing it
     while (!this.queue.isEmpty()) {
       const item = this.queue.dequeue()!;
@@ -60,12 +63,12 @@ export class PriorityQueue<T> implements IPriorityQueue<T> {
       }
       tempQueue.enqueue(item);
     }
-    
+
     // Restore the original queue
     while (!tempQueue.isEmpty()) {
       this.queue.enqueue(tempQueue.dequeue()!);
     }
-    
+
     return highestPriorityValue;
   }
 
@@ -84,7 +87,7 @@ export class PriorityQueue<T> implements IPriorityQueue<T> {
   toArray(): { value: T; priority: number }[] {
     const arr: { value: T; priority: number }[] = [];
     const tempQueue = new Queue<{ priority: number; value: T }>();
-    
+
     // Copy all items to the array and temporary queue
     while (!this.queue.isEmpty()) {
       const item = this.queue.dequeue();
@@ -93,7 +96,7 @@ export class PriorityQueue<T> implements IPriorityQueue<T> {
         tempQueue.enqueue(item);
       }
     }
-    
+
     // Restore the original queue
     while (!tempQueue.isEmpty()) {
       const item = tempQueue.dequeue();
@@ -101,10 +104,10 @@ export class PriorityQueue<T> implements IPriorityQueue<T> {
         this.queue.enqueue(item);
       }
     }
-    
+
     return arr;
   }
-  
+
   clear(): void {
     this.queue.clear();
   }

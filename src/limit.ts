@@ -1,4 +1,4 @@
-import { Queue } from "./lib/queue.js";
+import { Queue } from './lib/queue.js';
 
 type Task<T> = () => Promise<T>;
 
@@ -9,10 +9,7 @@ type Task<T> = () => Promise<T>;
  * @param {number} n - Maximum number of tasks to run concurrently.
  * @returns {Promise<void>} A promise that resolves when all tasks have completed.
  */
-export function limit<T>(
-  tasks: Array<() => Promise<T>>,
-  n: number
-): Promise<void> {
+export function limit<T>(tasks: Array<() => Promise<T>>, n: number): Promise<void> {
   return new Promise((resolve) => {
     let index = 0;
     let active = 0;

@@ -1,4 +1,4 @@
-import { IQueue } from "./queue-interface";
+import { IQueue } from './queue-interface';
 
 class QueueNode<T> {
   value: T;

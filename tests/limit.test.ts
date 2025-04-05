@@ -1,7 +1,7 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { limit, makeLimit } from "../src/limit.js";
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { limit, makeLimit } from '../src/limit.js';
 
-describe("limit", () => {
+describe('limit', () => {
   beforeEach(() => {
     vi.useFakeTimers();
   });
@@ -10,7 +10,7 @@ describe("limit", () => {
     vi.useRealTimers();
   });
 
-  it("should execute tasks with limited concurrency", async () => {
+  it('should execute tasks with limited concurrency', async () => {
     const results: number[] = [];
     const createTask = (value: number, delay: number) => async () => {
       await vi.advanceTimersByTimeAsync(delay);
@@ -39,11 +39,11 @@ describe("limit", () => {
     expect(results).toContain(5);
   });
 
-  it("should handle empty task array", async () => {
+  it('should handle empty task array', async () => {
     await expect(limit([], 2)).resolves.toBeUndefined();
   });
 
-  it("should handle errors in tasks without stopping other tasks", async () => {
+  it('should handle errors in tasks without stopping other tasks', async () => {
     const results: number[] = [];
     const errors: Error[] = [];
 
@@ -53,7 +53,7 @@ describe("limit", () => {
       });
 
     const errorTask = () =>
-      Promise.reject("Task failed").catch((e) => {
+      Promise.reject('Task failed').catch((e) => {
         errors.push(e as Error);
       });
 
@@ -65,7 +65,7 @@ describe("limit", () => {
     expect(errors.length).toBe(2);
   });
 
-  it("should respect the concurrency limit", async () => {
+  it('should respect the concurrency limit', async () => {
     let maxConcurrent = 0;
     let currentConcurrent = 0;
 
@@ -87,7 +87,7 @@ describe("limit", () => {
   });
 });
 
-describe("makeLimit", () => {
+describe('makeLimit', () => {
   beforeEach(() => {
     vi.useFakeTimers();
   });
@@ -96,7 +96,7 @@ describe("makeLimit", () => {
     vi.useRealTimers();
   });
 
-  it("should create a function that limits concurrency", async () => {
+  it('should create a function that limits concurrency', async () => {
     const executionOrder: number[] = [];
     const delays = [50, 10, 30, 20, 40];
 
@@ -121,7 +121,7 @@ describe("makeLimit", () => {
     expect(executionOrder.length).toBe(5);
   });
 
-  it("should handle errors in tasks", async () => {
+  it('should handle errors in tasks', async () => {
     const limitedExecutor = makeLimit<number>(2);
 
     const successPromise = limitedExecutor(async () => {
@@ -129,14 +129,14 @@ describe("makeLimit", () => {
     });
 
     const errorPromise = limitedExecutor(async () => {
-      throw new Error("Task failed");
+      throw new Error('Task failed');
     });
 
     await expect(successPromise).resolves.toBe(42);
-    await expect(errorPromise).rejects.toThrow("Task failed");
+    await expect(errorPromise).rejects.toThrow('Task failed');
   });
 
-  it("should respect the concurrency limit", async () => {
+  it('should respect the concurrency limit', async () => {
     let executing = 0;
     let maxExecuting = 0;
     const concurrencyLimit = 2;
@@ -162,7 +162,7 @@ describe("makeLimit", () => {
     expect(executing).toBe(0);
   });
 
-  it("should execute tasks sequentially with concurrency 1", async () => {
+  it('should execute tasks sequentially with concurrency 1', async () => {
     const executionOrder: number[] = [];
     const limitedExecutor = makeLimit<void>(1);
 
@@ -191,7 +191,7 @@ describe("makeLimit", () => {
     expect(executionOrder).toEqual([1, 11, 2, 22, 3, 33]);
   });
 
-  it("should queue tasks when concurrency limit is reached", async () => {
+  it('should queue tasks when concurrency limit is reached', async () => {
     const executionOrder: number[] = [];
     const limitedExecutor = makeLimit<void>(1);
 
